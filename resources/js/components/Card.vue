@@ -251,12 +251,18 @@ export default {
      * Load persisted filters from existing filters
      */
     loadPersistedFromFilters() {
+    
+    try {
       this.getFilters().forEach(filterItem => {
         this.persistedFilters[this.resourceName].push({
           filterClass: filterItem.class,
-          value: filterItem.currentValue,
+          value: null === filterItem ? null : filterItem.currentValue,
         });
       });
+    } catch() {
+    
+    }
+
 
       localStorage.setItem('PERSISTED_DETACHED_FILTERS', JSON.stringify(this.persistedFilters));
     },
